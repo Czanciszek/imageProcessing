@@ -1,8 +1,8 @@
-package api.Transformation;
+package api;
 
 public class SetMask {
 
-    static int[][] setMask(int length, int deg) {
+    public static int[][] setMask(int length, int deg) {
         int[][] mask = new int[length][length];
 
         switch(deg) {

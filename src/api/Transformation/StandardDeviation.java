@@ -2,6 +2,8 @@ package api.Transformation;
 
 import api.MyImage;
 
+import static api.SetPixel.setPixel;
+
 public class StandardDeviation {
     public static void stdDeviation(MyImage img, int maskSize, int data){
         int width = img.getImageWidth();
@@ -70,12 +72,7 @@ public class StandardDeviation {
             }
         }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int v = output[x + y * width];
-                img.setPixel(x, y, 255, v, v, v);
-            }
-        }
+        setPixel(img, width, height, output);
 
     }
 

@@ -2,7 +2,8 @@ package api.Transformation;
 
 import api.MyImage;
 
-import static api.Transformation.SetMask.setMask;
+import static api.SetMask.setMask;
+import static api.SetPixel.setPixel;
 
 public class DilateErode {
 
@@ -47,12 +48,8 @@ public class DilateErode {
             }
         }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int v = output[x + y * width];
-                img.setPixel(x, y, 255, v, v, v);
-            }
-        }
+        setPixel(img, width, height, output);
 
     }
+
 }
