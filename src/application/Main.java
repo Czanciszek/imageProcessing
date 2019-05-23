@@ -3,6 +3,7 @@ package application;
 import api.FilePath;
 import api.MyImage;
 import api.Transformation.Closing;
+import api.Transformation.ConvexFigure;
 import api.Transformation.StandardDeviation;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -40,7 +41,8 @@ public class Main extends Application {
         final ComboBox comboBox = new ComboBox();
         comboBox.getItems().addAll(
                 "Closing Image",
-                "Standard Deviation Filter"
+                "Standard Deviation Filter",
+                "Convex Figure"
         );
         comboBox.setPromptText("Choose...");
 
@@ -153,6 +155,12 @@ public class Main extends Application {
                         myImage.writeImage(resultPathBlue);
                     }
                     break;
+                case "Convex Figure":
+                    ConvexFigure convexFigure = new ConvexFigure();
+                    convexFigure.convexFigure(myImage);
+                    myImage.writeImage(resultPath);
+                    System.out.println("done");
+                    break;
             }
 
             try {
@@ -161,8 +169,8 @@ public class Main extends Application {
                 FileInputStream input2 = new FileInputStream(file2);
                 Image image2 = new Image(input2);
                 outputImageView.setImage(image2);
-                outputImageView.setFitWidth(500);
-                outputImageView.setFitHeight(500);
+                outputImageView.setFitWidth(image2.getWidth());
+                outputImageView.setFitHeight(image2.getHeight());
 
                 //Żeby dalsza filtracja przebiegała na prawym obrazku
                 new FilePath(resultPath);
