@@ -23,6 +23,16 @@ public class MyImage {
     public MyImage() {
     }
 
+    public MyImage(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.totalPixels = this.width * this.height;
+        this.pixels = new int[this.totalPixels];
+        image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
+        this.imgType = ImageType.PNG;
+        initPixelArray();
+    }
+
     public void readImage(String filePath) {
         try {
             File f = new File(filePath);
@@ -68,6 +78,10 @@ public class MyImage {
 
     public int getImageHeight() {
         return height;
+    }
+
+    public int getAlpha(int x, int y) {
+        return (pixels[x + (y * width)] >> 24) & 0xFF;
     }
 
     public int getRed(int x, int y) {

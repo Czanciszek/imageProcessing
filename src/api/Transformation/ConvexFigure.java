@@ -48,7 +48,6 @@ public class ConvexFigure {
         }
     }
 
-
     static int[][] rotateMask(int[][] mask) {
 
         int[][] rotatedMask = new int[3][3];

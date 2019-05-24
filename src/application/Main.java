@@ -4,6 +4,7 @@ import api.FilePath;
 import api.MyImage;
 import api.Transformation.Closing;
 import api.Transformation.ConvexFigure;
+import api.Transformation.ScaleImage;
 import api.Transformation.StandardDeviation;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -29,6 +30,9 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static api.Transformation.ScaleImage.scale;
+import static com.sun.javafx.iio.common.ImageTools.scaleImage;
+
 public class Main extends Application {
 
     @Override
@@ -42,7 +46,8 @@ public class Main extends Application {
         comboBox.getItems().addAll(
                 "Closing Image",
                 "Standard Deviation Filter",
-                "Convex Figure"
+                "Convex Figure",
+                "Scale Image"
         );
         comboBox.setPromptText("Choose...");
 
@@ -72,8 +77,21 @@ public class Main extends Application {
                 System.out.println(filePath.path);
 
                 Image newImage = new Image(input);
+
                 inputImageView.setImage(newImage);
+                double imageWidth = newImage.getWidth();
+                double imageHeight = newImage.getHeight();
+                if( imageWidth > 500 )
+                    imageWidth = 500;
+                if( imageHeight > 500 )
+                    imageHeight = 500;
+
+                inputImageView.setFitHeight(imageHeight);
+                inputImageView.setFitWidth(imageWidth);
+
                 outputImageView.setImage(newImage);
+                outputImageView.setFitHeight(imageHeight);
+                outputImageView.setFitWidth(imageWidth);
 
                 MyImage myImage = new MyImage();
                 myImage.readImage(file.getAbsolutePath());
@@ -159,7 +177,10 @@ public class Main extends Application {
                     ConvexFigure convexFigure = new ConvexFigure();
                     convexFigure.convexFigure(myImage);
                     myImage.writeImage(resultPath);
-                    System.out.println("done");
+                    break;
+                case "Scale Image":
+                    MyImage scaledImage = scale(myImage, 1.7, 0.4);
+                    scaledImage.writeImage(resultPath);
                     break;
             }
 
