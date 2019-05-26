@@ -8,13 +8,29 @@ public class ConvexFigure {
 
         int mask[][] = {{1,1,0},{1, -1, 0}, {1, 0, -1}};
 
-        for( int t = 0; t < 100; t++ ) {
+        MyImage tmp = new MyImage(img.getImageWidth(), img.getImageHeight());
+
+        boolean imageEqual = false;
+
+        while(!imageEqual) {
+
+            for(int i=0; i<img.getImageWidth(); i++)
+                for(int j=0; j<img.getImageHeight(); j++ )
+                    tmp.setPixel(i, j, img.getAlpha(i,j), img.getRed(i,j), img.getGreen(i,j), img.getBlue(i,j));
+
+            imageEqual = true;
+
             for( int i = 0; i<8; i++ ) {
                 bwhitmiss(img, mask);
                 mask = rotateMask(mask);
             }
-        }
 
+            for(int i=0; i<img.getImageWidth(); i++)
+                for(int j=0; j<img.getImageHeight(); j++ )
+                    if( tmp.getRed(i,j) != img.getRed(i,j) )
+                        imageEqual = false;
+
+        }
     }
 
     private static void bwhitmiss(MyImage img, int[][] mask) {

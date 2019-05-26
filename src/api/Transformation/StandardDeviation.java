@@ -17,8 +17,8 @@ public class StandardDeviation {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
-                int minX = x-(maskSize/2);
-                int minY = y-(maskSize/2);
+                int minX = (x%2==1) ? x-(maskSize/2) : x-(maskSize/2)-1;
+                int minY = (y%2==1) ? y-(maskSize/2) : y-(maskSize/2)-1;
                 int maxX = x+(maskSize/2);
                 int maxY = y+(maskSize/2);
 
@@ -59,7 +59,6 @@ public class StandardDeviation {
 
                 if( val > max )
                     max = val;
-
 
                 output[x + y*width] = val;
             }
