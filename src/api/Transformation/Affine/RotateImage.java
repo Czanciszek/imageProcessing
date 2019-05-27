@@ -1,4 +1,4 @@
-package api.Transformation;
+package api.Transformation.Affine;
 
 import api.MyImage;
 

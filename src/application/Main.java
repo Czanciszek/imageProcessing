@@ -4,7 +4,6 @@ import api.FilePath;
 import api.MyImage;
 import api.Transformation.Closing;
 import api.Transformation.ConvexFigure;
-import api.Transformation.ScaleImage;
 import api.Transformation.StandardDeviation;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -30,9 +29,9 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static api.Transformation.RotateImage.rotate;
-import static api.Transformation.ScaleImage.scale;
-import static com.sun.javafx.iio.common.ImageTools.scaleImage;
+import static api.Transformation.Affine.RotateImage.rotate;
+import static api.Transformation.Affine.ScaleImage.scale;
+import static api.Transformation.Affine.WarpImage.warp;
 
 public class Main extends Application {
 
@@ -49,7 +48,8 @@ public class Main extends Application {
                 "Standard Deviation Filter",
                 "Convex Figure",
                 "Scale Image",
-                "Rotate Image"
+                "Rotate Image",
+                "Warp Image"
         );
         comboBox.setPromptText("Choose...");
 
@@ -140,8 +140,8 @@ public class Main extends Application {
                 param1Field.setVisible(true);
                 param2Field.setVisible(true);
             }
-            else if( method.equals("Rotate Image")) {
-                param1Label.setText("Rotate");
+            else if( method.equals("Rotate Image") || method.equals("Warp Image")) {
+                param1Label.setText("Angle");
                 param1Label.setVisible(true);
                 param1Field.setVisible(true);
             }
@@ -219,6 +219,11 @@ public class Main extends Application {
                     int angle2 = Integer.parseInt(param1Field.getText());
                     MyImage rotatedImage = rotate(myImage, angle2);
                     rotatedImage.writeImage(resultPath);
+                    break;
+                case "Warp Image":
+                    int angle3 = Integer.parseInt(param1Field.getText());
+                    MyImage warpedImage = warp(myImage, angle3);
+                    warpedImage.writeImage(resultPath);
                     break;
             }
 
