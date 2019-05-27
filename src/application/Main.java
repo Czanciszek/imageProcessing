@@ -30,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static api.Transformation.RotateImage.rotate;
 import static api.Transformation.ScaleImage.scale;
 import static com.sun.javafx.iio.common.ImageTools.scaleImage;
 
@@ -47,7 +48,8 @@ public class Main extends Application {
                 "Closing Image",
                 "Standard Deviation Filter",
                 "Convex Figure",
-                "Scale Image"
+                "Scale Image",
+                "Rotate Image"
         );
         comboBox.setPromptText("Choose...");
 
@@ -138,6 +140,11 @@ public class Main extends Application {
                 param1Field.setVisible(true);
                 param2Field.setVisible(true);
             }
+            else if( method.equals("Rotate Image")) {
+                param1Label.setText("Rotate");
+                param1Label.setVisible(true);
+                param1Field.setVisible(true);
+            }
         });
 
         Button loadFilterButton = new Button();
@@ -207,6 +214,11 @@ public class Main extends Application {
                     double scaleY = Double.parseDouble(param2Field.getText());
                     MyImage scaledImage = scale(myImage, scaleX, scaleY);
                     scaledImage.writeImage(resultPath);
+                    break;
+                case "Rotate Image":
+                    int angle2 = Integer.parseInt(param1Field.getText());
+                    MyImage rotatedImage = rotate(myImage, angle2);
+                    rotatedImage.writeImage(resultPath);
                     break;
             }
 

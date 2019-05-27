@@ -40,10 +40,8 @@ public class ConvexFigure {
         for (int y = 1; y < height-1; y++) {
             for (int x = 1; x < width-1; x++) {
                 boolean flag = true;
-                int tx = 0;
-                for (int k = x - 1; k <= x + 1; k++) {
-                    int ty = 0;
-                    for (int j = y - 1; j <= y + 1; j++) {
+                for (int k = x - 1, tx=0; k <= x + 1; k++, tx++) {
+                    for (int j = y - 1, ty=0; j <= y + 1; j++, ty++) {
                         if (k >= 0 && j >= 0 && k < width && j < height) {
                             if (mask[tx][ty] == 0)
                                 ;
@@ -54,9 +52,7 @@ public class ConvexFigure {
                             else
                                 flag = false;
                         }
-                        ty++;
                     }
-                    tx++;
                 }
                 if (flag)
                     img.setPixel(x, y, 255, 255, 255, 255);

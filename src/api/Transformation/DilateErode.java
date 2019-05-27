@@ -26,10 +26,8 @@ public class DilateErode {
                 int max = 0;
                 int min = 255;
 
-                int tx = 0;
-                for( int k=minX; k<=maxX; k++) {
-                    int ty=0;
-                    for( int j = minY; j<=maxY; j++ ) {
+                for( int k=minX, tx=0; k<=maxX; k++, tx++) {
+                    for( int j = minY, ty=0; j<=maxY; j++, ty++ ) {
                         if( k>=0 && j>=0 && k<width && j<height ) {
                             if( mask[ty][tx] == 1 ) {
                                 if (img.getRed(k, j) > max && dilate) {
@@ -40,9 +38,7 @@ public class DilateErode {
                                 }
                             }
                         }
-                        ty++;
                     }
-                    tx++;
                 }
                 output[x+y*width] = (dilate) ? max : min;
             }
